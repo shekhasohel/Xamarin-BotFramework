@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	xmlns:local="clr-namespace:TodoList;assembly=TodoList" 
+	x:Class="TodoList.TodoItemDetail">
+
+	<ContentPage.Padding>
+		<OnPlatform x:TypeArguments="Thickness" iOS="0, 20, 0, 0" />
+	</ContentPage.Padding>
+
+	<ContentPage.Content>
+		<StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand">
+			<StackLayout Orientation="Horizontal" HorizontalOptions="Fill" Padding="10, 5, 10, 5" BackgroundColor="#cccccc">
+				<Label Text="Todo Item Detail" VerticalOptions="CenterAndExpand" />
+				<Button Text="Done" Command="{Binding DoneCommand}" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" />
+			</StackLayout>
+
+			<StackLayout Orientation="Vertical" VerticalOptions="StartAndExpand" Padding="10, 10, 10, 10">
+				<Label Text="Title" />
+				<Entry Text="{Binding Title, Mode=TwoWay}" />
+                <Label Text="Text" />
+                <Entry Text="{Binding Text, Mode=TwoWay}" />
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
+					<!--<local:Checkbox IsChecked="{Binding IsDone, Mode=TwoWay}" />-->
+					<Label Text="Done" />
+					<Switch IsToggled="{Binding IsDone, Mode=TwoWay}" HorizontalOptions="EndAndExpand" />
+				</StackLayout>
+			</StackLayout>
+		</StackLayout>
+	</ContentPage.Content>
+</ContentPage>

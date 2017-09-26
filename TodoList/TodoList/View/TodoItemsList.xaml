@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	xmlns:local="clr-namespace:TodoList;assembly=TodoList"
+	x:Class="TodoList.TodoItemsList">
+
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<local:SourceConvertor x:Key="SourceConverter" />
+		</ResourceDictionary>
+	</ContentPage.Resources>
+	<ContentPage.Padding>
+		<OnPlatform x:TypeArguments="Thickness" iOS="0, 20, 0, 0" />
+	</ContentPage.Padding>
+
+    <Grid>
+        <ScrollView Orientation="Vertical" VerticalOptions="FillAndExpand">
+            <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand">
+                <ListView x:Name="TodoItemsListView" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" ItemsSource="{Binding Items}">
+
+                    <ListView.Header>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" Padding="10, 5, 10, 5" BackgroundColor="#cccccc">
+                            <Label Text="Todo List" VerticalOptions="CenterAndExpand" />
+                            <Button Text="Add" Command="{Binding NewTodoItemCommand}"
+							VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" />
+                            <Button Text="Bot" Command="{Binding SpeakItemCommand}"
+							VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" />
+                        </StackLayout>
+                    </ListView.Header>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand">
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="10, 10, 10, 10">
+                                        <Label FontSize="Medium" Text="{Binding Title}" />
+                                        <!--<local:Checkbox IsChecked="{Binding IsDone}" />-->
+                                        <local:CustomImage HeightRequest="20" WidthRequest="20" Source="{Binding IsDone, Converter={StaticResource SourceConverter}}" IsChecked="{Binding IsDone}" HorizontalOptions="EndAndExpand" />
+                                    </StackLayout>
+                                    <Label FontSize="Small" Text="{Binding Text}" />
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <!--<ActivityIndicator Color="Black" IsEnabled="True" IsRunning="True" IsVisible="{Binding IsBusy}" />-->
+                <!--<Label BackgroundColor="Gray" TextColor="White" Text="Loading..." IsVisible="{Binding IsBusy}" />-->
+            </StackLayout>
+        </ScrollView>
+        <ContentView IsVisible="{Binding IsBusy}" HorizontalOptions="Fill" VerticalOptions="Fill" BackgroundColor="#A6FFFFFF">
+            <ActivityIndicator IsRunning="{Binding IsBusy}" WidthRequest="100" HeightRequest="100" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+        </ContentView>
+    </Grid>
+</ContentPage>
